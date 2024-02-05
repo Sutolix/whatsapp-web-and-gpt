@@ -1,21 +1,17 @@
 import qrcode from 'qrcode-terminal'
 import pkg from 'whatsapp-web.js'
 const { Client, LocalAuth } = pkg
-
-const client = new Client({
-    authStrategy: new LocalAuth()
-})
-
 import OpenAI from "openai"
 
 const openai = new OpenAI()
-
+const client = new Client({
+    authStrategy: new LocalAuth()
+})
 async function generateAnswer(prompt) {
   const completion = await openai.chat.completions.create({
     messages: [{ role: "user", content: `${prompt}` }],
     model: "gpt-3.5-turbo",
   });
-
   return completion.choices[0].message.content
 }
 
@@ -39,6 +35,3 @@ client.on('message_create', async (message) => {
 });
 
 client.initialize()
-
-
-
