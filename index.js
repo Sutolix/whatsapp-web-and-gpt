@@ -7,6 +7,7 @@ const { Client, LocalAuth } = pkg
 const client = new Client({
     authStrategy: new LocalAuth()
 })
+
 async function generateAnswer(prompt) {
   const completion = await openai.chat.completions.create({
     messages: [{ role: "user", content: `${prompt}` }],
